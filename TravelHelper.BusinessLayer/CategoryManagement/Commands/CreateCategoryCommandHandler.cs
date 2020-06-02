@@ -12,7 +12,7 @@ namespace BusinessLayer.CategoryManagement.Commands
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CategoryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IAsyncRepository<Category> _categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
 
         public CreateCategoryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)

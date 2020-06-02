@@ -55,34 +55,35 @@ namespace BusinessLayer.Helpers
             return Ok();
         }
     }
-}
 
-public class Result<T> : Result
-{
-    private T _value;
-
-    public T Value
+    public class Result<T> : Result
     {
-        get
+        private T _value;
+
+        public T Value
         {
-            if (!Success)
+            get
+            {
+                if (!Success)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                return _value;
+            }
+            private set => _value = value;
+        }
+
+        protected internal Result(T value, bool success, string error)
+            : base(success, error)
+        {
+            if (value == null && success)
             {
                 throw new InvalidOperationException();
             }
 
-            return _value;
+            Value = value;
         }
-        private set => _value = value;
-    }
-
-    protected internal Result(T value, bool success, string error)
-        : base(success, error)
-    {
-        if (value == null && success)
-        {
-            throw new InvalidOperationException();
-        }
-
-        Value = value;
     }
 }
+

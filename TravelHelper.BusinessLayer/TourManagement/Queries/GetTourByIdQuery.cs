@@ -1,9 +1,10 @@
-﻿using MediatR;
-using TravelHelper.Domain.Models;
+﻿using BusinessLayer.Helpers;
+using BusinessLayer.Models.DTO;
+using MediatR;
 
 namespace BusinessLayer.TourManagement.Queries
 {
-    public class GetTourByIdQuery : IRequest<Tour>
+    public class GetTourByIdQuery : IRequest<Result<TourDto>>
     {
         public int Id { get; set; }
     }

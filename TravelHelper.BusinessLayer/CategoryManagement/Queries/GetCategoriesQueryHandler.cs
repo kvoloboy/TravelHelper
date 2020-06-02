@@ -12,7 +12,7 @@ namespace BusinessLayer.CategoryManagement.Queries
     public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, List<CategoryDto>>
     {
         private readonly IMapper _mapper;
-        private readonly IAsyncReadonlyRepository<Category> _categoryRepository;
+        private readonly IReadonlyRepository<Category> _categoryRepository;
 
         public GetCategoriesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {

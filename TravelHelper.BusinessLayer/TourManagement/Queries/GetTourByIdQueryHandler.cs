@@ -1,25 +1,39 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using BusinessLayer.Extensions;
+using BusinessLayer.Extensions.Repository;
+using BusinessLayer.Helpers;
+using BusinessLayer.Models.DTO;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
 
 namespace BusinessLayer.TourManagement.Queries
 {
-    public class GetTourByIdQueryHandler : IRequestHandler<GetTourByIdQuery, Tour>
+    public class GetTourByIdQueryHandler : IRequestHandler<GetTourByIdQuery, Result<TourDto>>
     {
-        private readonly IAsyncReadonlyRepository<Tour> _tourReadonlyRepository;
+        private readonly IMapper _mapper;
+        private readonly IReadonlyRepository<Tour> _tourReadonlyRepository;
 
-        public GetTourByIdQueryHandler(IUnitOfWork unitOfWork)
+        public GetTourByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
+            _mapper = mapper;
             _tourReadonlyRepository = unitOfWork.GetReadonlyRepository<Tour>();
         }
 
-        public Task<Tour> Handle(GetTourByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<TourDto>> Handle(GetTourByIdQuery request, CancellationToken cancellationToken)
         {
-            var tour = _tourReadonlyRepository.FindSingleAsync(t => t.Id == request.Id);
+            var tour = await _tourReadonlyRepository.FindSingleAsync(t => t.Id == request.Id);
 
-            return tour;
+            if (tour == null)
+            {
+                return Result.Fail<TourDto>($"Not found tour with id: {request.Id}");
+            }
+
+            var tourDto = _mapper.Map<Tour, TourDto>(tour);
+
+            return Result.Ok(tourDto);
         }
     }
 }

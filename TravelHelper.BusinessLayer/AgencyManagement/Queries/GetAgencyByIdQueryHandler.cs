@@ -12,7 +12,7 @@ namespace BusinessLayer.AgencyManagement.Queries
     public class GetAgencyByIdQueryHandler : IRequestHandler<GetAgencyByIdQuery, Result<AgencyDto>>
     {
         private readonly IMapper _mapper;
-        private readonly IAsyncReadonlyRepository<Agency> _agencyRepository;
+        private readonly IReadonlyRepository<Agency> _agencyRepository;
 
         public GetAgencyByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {

@@ -6,8 +6,8 @@ namespace TravelHelper.Domain.Abstractions
     public interface IUnitOfWork
     {
 
-        IAsyncRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity;
-        IAsyncReadonlyRepository<TEntity> GetReadonlyRepository<TEntity>() where TEntity : BaseEntity;
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity;
+        IReadonlyRepository<TEntity> GetReadonlyRepository<TEntity>() where TEntity : BaseEntity;
         Task CommitAsync();
     }
 }

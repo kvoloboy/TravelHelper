@@ -13,7 +13,7 @@ namespace BusinessLayer.AgencyManagement.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Agency> _agencyRepository;
+        private readonly IRepository<Agency> _agencyRepository;
 
         public CreateAgencyCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {

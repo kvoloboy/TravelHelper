@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Extensions;
+using BusinessLayer.Extensions.Repository;
 using BusinessLayer.Helpers;
-using BusinessLayer.Validators.Interfaces;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
@@ -14,23 +14,18 @@ namespace BusinessLayer.AgencyManagement.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Agency> _agencyRepository;
-        private readonly IValidator<int> _entityPresenceValidator;
+        private readonly IRepository<Agency> _agencyRepository;
 
-        public UpdateAgencyCommandHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IValidator<int> entityPresenceValidator)
+        public UpdateAgencyCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _entityPresenceValidator = entityPresenceValidator;
             _agencyRepository = _unitOfWork.GetRepository<Agency>();
         }
 
         public async Task<Result> Handle(UpdateAgencyCommand request, CancellationToken cancellationToken)
         {
-            var entityPresenceResult = await _entityPresenceValidator.Validate(request.Id);
+            var entityPresenceResult = await _agencyRepository.CheckExistence(request.Id);
 
             entityPresenceResult.OnSuccess(async () =>
             {

@@ -1,6 +1,6 @@
-﻿using BusinessLayer.Models.DTO;
+﻿using BusinessLayer.Helpers;
+using BusinessLayer.Models.DTO;
 using MediatR;
-using TravelHelper.Domain.Models;
 
 namespace BusinessLayer.AgencyManagement.Queries
 {

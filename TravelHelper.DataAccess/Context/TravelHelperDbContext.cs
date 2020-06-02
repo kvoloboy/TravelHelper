@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TravelHelper.Domain.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TravelHelper.DataAccess.Context
 {
-    public class TravelHelperDbContext : DbContext
+    public class TravelHelperDbContext : IdentityDbContext
     {
     }
 }

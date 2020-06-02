@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Extensions;
+using BusinessLayer.Extensions.Repository;
 using BusinessLayer.Helpers;
-using BusinessLayer.Validators.Interfaces;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
@@ -14,23 +14,18 @@ namespace BusinessLayer.CategoryManagement.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Category> _categoryRepository;
-        private readonly IValidator<int> _entityPresenceValidator;
+        private readonly IRepository<Category> _categoryRepository;
 
-        public DeleteCategoryCommandHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IValidator<int> entityPresenceValidator)
+        public DeleteCategoryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _entityPresenceValidator = entityPresenceValidator;
             _categoryRepository = _unitOfWork.GetRepository<Category>();
         }
 
         public async Task<Result> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var entityPresenceResult = await _entityPresenceValidator.Validate(request.Id);
+            var entityPresenceResult = await _categoryRepository.CheckExistence(request.Id);
 
             entityPresenceResult.OnSuccess(async () =>
             {

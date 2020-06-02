@@ -6,20 +6,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="HotelManagement\Commands" />
-      <Folder Include="HotelManagement\Queries" />
-      <Folder Include="OrderManagement\Commands" />
-      <Folder Include="OrderManagement\Queries" />
-      <Folder Include="RoleManagement" />
       <Folder Include="TourManagement\Builders\Interfaces" />
-      <Folder Include="TourManagement\Commands" />
-      <Folder Include="UserManagement" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Autofac" Version="5.1.4" />
       <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="MediatR" Version="8.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     </ItemGroup>
 
     <ItemGroup>

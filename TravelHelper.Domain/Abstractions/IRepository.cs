@@ -3,7 +3,7 @@ using TravelHelper.Domain.Models;
 
 namespace TravelHelper.Domain.Abstractions
 {
-    public interface IAsyncRepository<TEntity> : IAsyncReadonlyRepository<TEntity>
+    public interface IRepository<TEntity> : IReadonlyRepository<TEntity>
         where TEntity: BaseEntity
     {
         Task<int> AddAsync(TEntity item);

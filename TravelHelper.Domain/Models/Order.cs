@@ -16,7 +16,7 @@ namespace TravelHelper.Domain.Models
         public DateTime OrderDate { get; set; }
         public OrderStatus Status { get; set; }
 
-        public ICollection<OrderDetail> Details { get; set; }
+        public ICollection<OrderDetails> Details { get; set; }
 
         public User User { get; set; }
         public int UserId { get; set; }
