@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelHelper.Domain.Models;
+using TravelHelper.Domain.Models.Enums;
 
 namespace TravelHelper.DataAccess.Repositories
 {
@@ -13,7 +14,7 @@ namespace TravelHelper.DataAccess.Repositories
         private readonly DbSet<Agency> _agenciesDbSet;
 
         public AgencyRepository(DbContext dbContext)
-        :base(dbContext)
+            : base(dbContext)
         {
             _agenciesDbSet = dbContext.Set<Agency>();
         }
@@ -29,7 +30,9 @@ namespace TravelHelper.DataAccess.Repositories
 
         public override Task<List<Agency>> FindAllAsync(
             Expression<Func<Agency, bool>> predicate = null,
-            int? skip = null,
+            Expression<Func<Agency, object>> sort = null,
+            SortDirection sortDirection = SortDirection.Ascending,
+            int skip = 0,
             int? take = null)
         {
             var agencies = _agenciesDbSet
@@ -41,10 +44,14 @@ namespace TravelHelper.DataAccess.Repositories
                 agencies = agencies.Where(predicate);
             }
 
-            if (skip != null)
+            if (sort != null)
             {
-                agencies = agencies.Skip(skip.Value);
+                agencies = sortDirection == SortDirection.Ascending
+                    ? agencies.OrderBy(sort)
+                    : agencies.OrderByDescending(sort);
             }
+
+            agencies = agencies.Skip(skip);
 
             if (take != null)
             {

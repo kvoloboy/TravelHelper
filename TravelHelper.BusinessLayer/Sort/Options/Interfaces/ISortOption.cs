@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using TravelHelper.Domain.Models;
+using TravelHelper.Domain.Models.Enums;
 
 namespace BusinessLayer.Sort.Options.Interfaces
 {

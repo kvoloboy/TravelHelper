@@ -5,11 +5,11 @@ using TravelHelper.Domain.Models;
 
 namespace BusinessLayer.Sort.Builders
 {
-    public class SortOptionBuilder : ISortOptionBuilder
+    public class SortOptionFactory : ISortOptionFactory
     {
         private readonly ILifetimeScope _lifetimeScope;
 
-        public SortOptionBuilder(ILifetimeScope lifetimeScope)
+        public SortOptionFactory(ILifetimeScope lifetimeScope)
         {
             _lifetimeScope = lifetimeScope;
         }

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
+using TravelHelper.Domain.Models.Enums;
 
 namespace TravelHelper.DataAccess.Repositories
 {
@@ -30,7 +30,9 @@ namespace TravelHelper.DataAccess.Repositories
 
         public override Task<List<Category>> FindAllAsync(
             Expression<Func<Category, bool>> predicate = null,
-            int? skip = null,
+            Expression<Func<Category, object>> sort = null,
+            SortDirection sortDirection = SortDirection.Ascending,
+            int skip = 0,
             int? take = null)
         {
             var categories = _categoriesDbSet
@@ -42,16 +44,19 @@ namespace TravelHelper.DataAccess.Repositories
                 categories = categories.Where(predicate);
             }
 
-            if (skip != null)
+            if (sort != null)
             {
-                categories = categories.Skip(skip.Value);
+                categories = sortDirection == SortDirection.Ascending
+                    ? categories.OrderBy(sort)
+                    : categories.OrderByDescending(sort);
             }
+
+            categories = categories.Skip(skip);
 
             if (take != null)
             {
                 categories = categories.Take(take.Value);
             }
-
 
             return categories.ToListAsync();
         }

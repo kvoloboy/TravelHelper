@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelHelper.Domain.Models;
+using TravelHelper.Domain.Models.Enums;
 
 namespace TravelHelper.DataAccess.Repositories
 {
@@ -25,7 +26,7 @@ namespace TravelHelper.DataAccess.Repositories
                 .Include(t => t.Agency)
                 .Include(t => t.Category)
                 .Include(t => t.Hotel)
-                    .ThenInclude(h=> h.Images)
+                .ThenInclude(h => h.Images)
                 .Include(t => t.Ratings)
                 .FirstOrDefaultAsync(predicate);
 
@@ -34,12 +35,14 @@ namespace TravelHelper.DataAccess.Repositories
 
         public override Task<List<Tour>> FindAllAsync(
             Expression<Func<Tour, bool>> predicate = null,
-            int? skip = null,
+            Expression<Func<Tour, object>> sort = null,
+            SortDirection sortDirection = SortDirection.Ascending,
+            int skip = 0,
             int? take = null)
         {
             var tours = _tourDbSet
                 .Include(t => t.Hotel)
-                    .ThenInclude(h => h.Images)
+                .ThenInclude(h => h.Images)
                 .AsNoTracking();
 
             if (predicate != null)
@@ -47,10 +50,14 @@ namespace TravelHelper.DataAccess.Repositories
                 tours = tours.Where(predicate);
             }
 
-            if (skip != null)
+            if (sort != null)
             {
-                tours = tours.Skip(skip.Value);
+                tours = sortDirection == SortDirection.Ascending
+                    ? tours.OrderBy(sort)
+                    : tours.OrderByDescending(sort);
             }
+
+            tours = tours.Skip(skip);
 
             if (take != null)
             {

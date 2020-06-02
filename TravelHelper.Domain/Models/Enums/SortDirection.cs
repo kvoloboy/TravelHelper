@@ -1,4 +1,4 @@
-﻿namespace BusinessLayer.Sort
+﻿namespace TravelHelper.Domain.Models.Enums
 {
     public enum SortDirection
     {

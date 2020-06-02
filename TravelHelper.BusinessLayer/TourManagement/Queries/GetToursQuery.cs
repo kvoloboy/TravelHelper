@@ -16,7 +16,8 @@ namespace BusinessLayer.TourManagement.Queries
         public int DestinationPointId { get; set; }
         public IEnumerable<int> Categories { get; set; }
         public IEnumerable<int> Agencies { get; set; }
-        public int PageNumber { get; set; }
         public string SortOption { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }

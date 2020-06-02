@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
+using TravelHelper.Domain.Models.Enums;
 
 namespace TravelHelper.DataAccess.Repositories
 {
@@ -23,7 +24,9 @@ namespace TravelHelper.DataAccess.Repositories
 
         public abstract Task<List<TEntity>> FindAllAsync(
             Expression<Func<TEntity, bool>> predicate = null,
-            int? skip = null,
+            Expression<Func<TEntity, object>> sort = null,
+            SortDirection sortDirection = SortDirection.Ascending,
+            int skip = 0,
             int? take = null);
 
         public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
