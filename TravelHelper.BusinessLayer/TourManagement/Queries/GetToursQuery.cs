@@ -11,10 +11,12 @@ namespace BusinessLayer.TourManagement.Queries
         public int MinPrice { get; set; }
         public int MaxPrice { get; set; }
         public string Name { get; set; }
-        public int PageNumber { get; set; }
-        public TimeOfTheYear TimeOfTheYear { get; set; }
-        public string SortOption { get; set; }
+        public TimeOfTheYear? TimeOfTheYear { get; set; }
+        public int SourcePointId { get; set; }
+        public int DestinationPointId { get; set; }
         public IEnumerable<int> Categories { get; set; }
         public IEnumerable<int> Agencies { get; set; }
+        public int PageNumber { get; set; }
+        public string SortOption { get; set; }
     }
 }
