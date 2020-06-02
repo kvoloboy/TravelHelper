@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BusinessLayer.Helpers;
+using BusinessLayer.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TravelHelper.Domain.Abstractions;

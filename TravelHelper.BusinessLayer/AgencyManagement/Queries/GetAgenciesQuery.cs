@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BusinessLayer.Models.DTO;
+using BusinessLayer.Utils.DTO;
 using MediatR;
 using TravelHelper.Domain.Models;
 

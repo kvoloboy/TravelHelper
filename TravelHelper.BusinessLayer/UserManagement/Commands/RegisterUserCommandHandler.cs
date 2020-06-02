@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using BusinessLayer.Helpers;
+using BusinessLayer.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TravelHelper.Domain.Models.Identity;

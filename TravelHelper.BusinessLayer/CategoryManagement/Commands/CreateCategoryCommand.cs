@@ -1,5 +1,5 @@
-﻿using BusinessLayer.Helpers;
-using BusinessLayer.Models.DTO;
+﻿using BusinessLayer.Utils;
+using BusinessLayer.Utils.DTO;
 using MediatR;
 
 namespace BusinessLayer.CategoryManagement.Commands

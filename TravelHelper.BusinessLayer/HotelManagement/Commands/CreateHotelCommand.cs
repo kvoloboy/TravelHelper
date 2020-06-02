@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLayer.Models.DTO;
+using BusinessLayer.Utils.DTO;
 using MediatR;
 
 namespace BusinessLayer.HotelManagement.Commands
