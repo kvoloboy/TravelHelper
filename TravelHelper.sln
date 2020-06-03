@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.BusinessLayer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.API", "TravelHelper.API\TravelHelper.API.csproj", "{892E2E02-FDEF-4D0C-898A-861643ADB567}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.Identity", "TravelHelper.Identity\TravelHelper.Identity.csproj", "{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{892E2E02-FDEF-4D0C-898A-861643ADB567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892E2E02-FDEF-4D0C-898A-861643ADB567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892E2E02-FDEF-4D0C-898A-861643ADB567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

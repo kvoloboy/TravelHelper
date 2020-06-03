@@ -1,31 +1,31 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models.Identity;
 
 namespace BusinessLayer.UserManagement.Queries
 {
     public class CanUserSignInQueryHandler : IRequestHandler<CanUserSignInQuery, bool>
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
+        private readonly IRepository<User> _userRepository;
 
-        public CanUserSignInQueryHandler(UserManager<User> userManager, IMapper mapper)
+        public CanUserSignInQueryHandler(IUnitOfWork unitOfWork)
         {
-            _userManager = userManager;
-            _mapper = mapper;
+            _userRepository = unitOfWork.GetRepository<User>();
         }
 
-        public Task<bool> Handle(CanUserSignInQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CanUserSignInQuery request, CancellationToken cancellationToken)
         {
-            var user = new User
-            {
-                Email = request.Email
-            };
+            var passwordHash = PasswordHasher.CreateHash(request.Password);
+            Expression<Func<User, bool>> searchExpression =
+                u => u.Email == request.Email && u.PasswordHash == passwordHash;
 
-            return _userManager.CheckPasswordAsync(user, request.Password);
+            var areValidCredentials = await _userRepository.AnyAsync(searchExpression);
+
+            return areValidCredentials;
         }
     }
 }

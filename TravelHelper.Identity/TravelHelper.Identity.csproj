@@ -2,17 +2,17 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>BusinessLayer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Autofac" Version="5.1.4" />
-      <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="MediatR" Version="8.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TravelHelper.Domain\TravelHelper.Domain.csproj" />
+      <ProjectReference Include="..\TravelHelper.BusinessLayer\TravelHelper.BusinessLayer.csproj" />
     </ItemGroup>
 
 </Project>

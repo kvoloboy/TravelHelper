@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using BusinessLayer.Utils;
+using BusinessLayer.Utils.Extensions;
+using BusinessLayer.Utils.Extensions.Repository;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
 using TravelHelper.Domain.Models.Enums;
@@ -14,35 +14,33 @@ namespace BusinessLayer.OrderManagement.Commands
     public class CreateDefaultOrderCommandHandler : IRequestHandler<CreateDefaultOrderCommand, Result>
     {
         private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
 
-        public CreateDefaultOrderCommandHandler(IUnitOfWork unitOfWork, UserManager<User> userManager)
+        public CreateDefaultOrderCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _userManager = userManager;
             _orderRepository = _unitOfWork.GetRepository<Order>();
+            _userRepository = _unitOfWork.GetRepository<User>();
         }
 
         public async Task<Result> Handle(CreateDefaultOrderCommand request, CancellationToken cancellationToken)
         {
-            var isUserExist = _userManager.Users.Any(u => u.Id == request.UserId);
+            var userPresenceResult = await _userRepository.CheckExistence(request.UserId);
 
-            if (!isUserExist)
+            userPresenceResult.OnSuccess(async () =>
             {
-                return Result.Fail($"Not found user with id: {request.UserId}");
-            }
+                var order = new Order
+                {
+                    Status = OrderStatus.New,
+                    UserId = request.UserId
+                };
 
-            var order = new Order
-            {
-                Status = OrderStatus.New,
-                UserId = request.UserId
-            };
+                await _orderRepository.AddAsync(order);
+                await _unitOfWork.CommitAsync();
+            });
 
-            await _orderRepository.AddAsync(order);
-            await _unitOfWork.CommitAsync();
-
-            return Result.Ok();
+            return userPresenceResult;
         }
     }
 }

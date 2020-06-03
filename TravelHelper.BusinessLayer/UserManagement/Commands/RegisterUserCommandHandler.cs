@@ -1,32 +1,61 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Utils;
+using BusinessLayer.Utils.DTO;
+using BusinessLayer.Utils.Validators.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models.Identity;
 
 namespace BusinessLayer.UserManagement.Commands
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result>
     {
-        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IEnumerable<IValidationRule<PasswordDto>> _passwordValidationRules;
+        private readonly IRepository<User> _userRepository;
 
-        public RegisterUserCommandHandler(UserManager<User> userManager, IMapper mapper)
+        public RegisterUserCommandHandler(
+            IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IEnumerable<IValidationRule<PasswordDto>> passwordValidationRules)
         {
-            _userManager = userManager;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _passwordValidationRules = passwordValidationRules;
+            _userRepository = _unitOfWork.GetRepository<User>();
+
         }
 
         public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<RegisterUserCommand, User>(request);
+            var validationResults = _passwordValidationRules.Select(rule =>
+            {
+                var passwordDto = new PasswordDto(request.Password);
+                return rule.Check(passwordDto);
+            }).ToArray();
 
-            var result = await _userManager.CreateAsync(user);
+            var passwordValidationResult = Result.Combine(validationResults);
 
-            return result.Succeeded ? Result.Ok() : Result.Fail(string.Join(Environment.NewLine, result.Errors));
+            if (passwordValidationResult.Failure)
+            {
+                return passwordValidationResult;
+            }
+
+            var user = new User
+            {
+                Email = request.Email,
+                PasswordHash = PasswordHasher.CreateHash(request.Password)
+            };
+
+            await _userRepository.AddAsync(user);
+            await _unitOfWork.CommitAsync();
+
+            return passwordValidationResult;
         }
     }
 }
