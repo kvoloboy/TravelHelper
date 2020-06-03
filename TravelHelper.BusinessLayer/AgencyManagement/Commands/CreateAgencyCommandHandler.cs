@@ -1,8 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using BusinessLayer.Utils;
-using BusinessLayer.Utils.DTO;
+using BusinessLayer.Shared;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;

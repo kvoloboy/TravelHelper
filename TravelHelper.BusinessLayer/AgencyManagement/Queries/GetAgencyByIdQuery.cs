@@ -1,5 +1,5 @@
-﻿using BusinessLayer.Utils;
-using BusinessLayer.Utils.DTO;
+﻿using BusinessLayer.AgencyManagement.DTO;
+using BusinessLayer.Shared;
 using MediatR;
 
 namespace BusinessLayer.AgencyManagement.Queries

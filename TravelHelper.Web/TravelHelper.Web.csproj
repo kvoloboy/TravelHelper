@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="MediatR" Version="8.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TravelHelper.BusinessLayer\TravelHelper.BusinessLayer.csproj" />
+      <ProjectReference Include="..\TravelHelper.DataAccess\TravelHelper.DataAccess.csproj" />
+      <ProjectReference Include="..\TravelHelper.Identity\TravelHelper.Identity.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mappings" />
+    </ItemGroup>
+
+</Project>

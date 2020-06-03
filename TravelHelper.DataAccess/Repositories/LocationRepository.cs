@@ -21,7 +21,7 @@ namespace TravelHelper.DataAccess.Repositories
         public override Task<Location> FindSingleAsync(Expression<Func<Location, bool>> predicate)
         {
             var location = _locationDbSet
-                .Include(l => l.Tours)
+                // .Include(l => l.Tours)
                 .FirstOrDefaultAsync(predicate);
 
             return location;
@@ -35,7 +35,7 @@ namespace TravelHelper.DataAccess.Repositories
             int? take = null)
         {
             var locations = _locationDbSet
-                .Include(l => l.Tours)
+                // .Include(l => l.Tours)
                 .AsNoTracking();
 
             if (predicate != null)

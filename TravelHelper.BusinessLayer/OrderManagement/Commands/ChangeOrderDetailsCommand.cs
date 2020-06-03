@@ -1,5 +1,5 @@
 ﻿using System;
-using BusinessLayer.Utils;
+using BusinessLayer.Shared;
 using MediatR;
 
 namespace BusinessLayer.OrderManagement.Commands

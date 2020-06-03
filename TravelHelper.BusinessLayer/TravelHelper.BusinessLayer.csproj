@@ -15,4 +15,13 @@
       <ProjectReference Include="..\TravelHelper.Domain\TravelHelper.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="AgencyManagement\Mappings" />
+      <Folder Include="CategoryManagement\Mappings" />
+      <Folder Include="HotelManagement\Mappings" />
+      <Folder Include="OrderManagement\Mappings" />
+      <Folder Include="TourManagement\Mappings" />
+      <Folder Include="UserManagement\Mappings" />
+    </ItemGroup>
+
 </Project>

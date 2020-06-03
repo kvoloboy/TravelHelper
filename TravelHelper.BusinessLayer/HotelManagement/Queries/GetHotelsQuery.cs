@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BusinessLayer.Utils.DTO;
+using BusinessLayer.HotelManagement.DTO;
 using MediatR;
 
 namespace BusinessLayer.HotelManagement.Queries

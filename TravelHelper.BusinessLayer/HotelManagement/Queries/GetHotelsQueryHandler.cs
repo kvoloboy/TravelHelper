@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using BusinessLayer.Utils.DTO;
+using BusinessLayer.HotelManagement.DTO;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;

@@ -1,0 +1,58 @@
+using Autofac;
+using BusinessLayer.Shared.Modules;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using TravelHelper.DataAccess;
+using TravelHelper.DataAccess.Context;
+using TravelHelper.Identity;
+
+namespace TravelHelper.Web
+{
+    public class Startup
+    {
+        private IConfigurationRoot Configuration { get; }
+
+        public Startup(IHostEnvironment environment)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllersWithViews();
+
+            services.AddDbContext<TravelHelperDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TravelHelperDbContext")));
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new BusinessLayerModule());
+            builder.RegisterModule(new DataAccessModule());
+            builder.RegisterModule(new WebModule());
+            builder.RegisterModule(new IdentityModule());
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+    }
+}

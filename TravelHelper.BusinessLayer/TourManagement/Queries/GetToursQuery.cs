@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BusinessLayer.Utils.DTO;
+using BusinessLayer.TourManagement.DTO;
 using MediatR;
 using TravelHelper.Domain.Models;
 using TravelHelper.Domain.Models.Enums;

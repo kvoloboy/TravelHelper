@@ -6,6 +6,6 @@ namespace TravelHelper.Domain.Models
     public class Location : BaseEntity
     {
         public string Name { get; set; }
-        public List<Tour> Tours { get; set; }
+        // public List<Tour> Tours { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using BusinessLayer.Utils;
-using BusinessLayer.Utils.Extensions;
-using BusinessLayer.Utils.Extensions.Repository;
+using BusinessLayer.Shared;
+using BusinessLayer.Shared.Extensions;
+using BusinessLayer.Shared.Extensions.Repository;
 using MediatR;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;

@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.DataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.BusinessLayer", "TravelHelper.BusinessLayer\TravelHelper.BusinessLayer.csproj", "{B212FD39-DF51-466D-AB48-475534691092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.API", "TravelHelper.API\TravelHelper.API.csproj", "{892E2E02-FDEF-4D0C-898A-861643ADB567}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.Web", "TravelHelper.Web\TravelHelper.Web.csproj", "{892E2E02-FDEF-4D0C-898A-861643ADB567}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHelper.Identity", "TravelHelper.Identity\TravelHelper.Identity.csproj", "{4018EF30-9C18-46F5-BD35-859B6AB9DD9D}"
 EndProject
