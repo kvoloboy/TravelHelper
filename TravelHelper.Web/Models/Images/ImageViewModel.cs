@@ -1,4 +1,4 @@
-﻿namespace TravelHelper.Web.Models.ViewModels.Images
+﻿namespace TravelHelper.Web.Models.Images
 {
     public class ImageViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace TravelHelper.Web.Models.ViewModels.Agencies
+﻿namespace TravelHelper.Web.Models.Agencies
 {
     public class AgencyViewModel
     {

@@ -5,7 +5,7 @@ using BusinessLayer.CategoryManagement.Commands;
 using BusinessLayer.CategoryManagement.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TravelHelper.Web.Models.ViewModels.Categories;
+using TravelHelper.Web.Models.Categories;
 
 namespace TravelHelper.Web.Controllers
 {
@@ -48,16 +48,9 @@ namespace TravelHelper.Web.Controllers
 
             var createCategoryCommand = _mapper.Map<CategoryViewModel, CreateCategoryCommand>(categoryViewModel);
 
-            var result = await _mediator.Send(createCategoryCommand);
+            await _mediator.Send(createCategoryCommand);
 
-            if (result.Success)
-            {
-                return RedirectToAction(nameof(GetAll));
-            }
-
-            ModelState.AddModelError(string.Empty, result.Error);
-
-            return View(categoryViewModel);
+            return RedirectToAction(nameof(GetAll));
         }
 
 

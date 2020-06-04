@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TravelHelper.Web.Models.ViewModels.Images;
+using Microsoft.AspNetCore.Http;
 
-namespace TravelHelper.Web.Models.ViewModels.Hotels
+namespace TravelHelper.Web.Models.Hotels
 {
-    public class HotelDetailsViewModel
+    public class UpdateHotelViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +13,6 @@ namespace TravelHelper.Web.Models.ViewModels.Hotels
         public string Address { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public IEnumerable<ImageViewModel> Images { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; }
     }
 }

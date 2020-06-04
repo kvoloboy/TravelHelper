@@ -1,4 +1,4 @@
-﻿namespace TravelHelper.Web.Models.ViewModels.Categories
+﻿namespace TravelHelper.Web.Models.Categories
 {
     public class CategoryViewModel
     {

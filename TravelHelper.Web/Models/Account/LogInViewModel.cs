@@ -1,4 +1,4 @@
-﻿namespace TravelHelper.Web.Models.ViewModels.Account
+﻿namespace TravelHelper.Web.Models.Account
 {
     public class LogInViewModel
     {

@@ -27,7 +27,16 @@ namespace TravelHelper.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AgencyConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new HotelConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new TourConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }

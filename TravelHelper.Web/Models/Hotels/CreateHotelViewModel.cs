@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
-namespace TravelHelper.Web.Models.ViewModels.Hotels
+namespace TravelHelper.Web.Models.Hotels
 {
     public class CreateHotelViewModel
     {

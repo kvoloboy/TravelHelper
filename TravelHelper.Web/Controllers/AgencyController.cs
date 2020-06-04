@@ -5,7 +5,7 @@ using BusinessLayer.AgencyManagement.Commands;
 using BusinessLayer.AgencyManagement.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TravelHelper.Web.Models.ViewModels.Agencies;
+using TravelHelper.Web.Models.Agencies;
 
 namespace TravelHelper.Web.Controllers
 {
@@ -49,16 +49,9 @@ namespace TravelHelper.Web.Controllers
 
             var createAgencyCommand = _mapper.Map<AgencyViewModel, CreateAgencyCommand>(agencyViewModel);
 
-            var result = await _mediator.Send(createAgencyCommand);
+            await _mediator.Send(createAgencyCommand);
 
-            if (result.Success)
-            {
-                return RedirectToAction(nameof(GetAll));
-            }
-
-            ModelState.AddModelError(string.Empty, result.Error);
-
-            return View(agencyViewModel);
+            return RedirectToAction(nameof(GetAll));
         }
 
         [HttpGet("update")]
