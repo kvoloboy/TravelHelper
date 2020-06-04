@@ -1,0 +1,30 @@
+﻿@model AgencyViewModel
+
+@{
+    ViewBag.Title = "Update agency";
+}
+
+<form asp-action="UpdateAsync" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" class="form-control">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone">Phone</label>
+        <input asp-for="Phone" class="form-control">
+        <span asp-validation-for="Phone"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control">
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-lg btn-outline-primary">
+            Update
+        </button>
+    </div>
+</form>

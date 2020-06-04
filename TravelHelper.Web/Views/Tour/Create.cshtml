@@ -1,0 +1,9 @@
+﻿@model ModifyTourViewModel
+
+@{
+    ViewBag.Title = "Create tour";
+}
+
+<select asp-for="TimeOfTheYear" asp-items="Html.GetEnumSelectList<TimeOfTheYear>()">
+    <option selected="selected" value="">Please select</option>
+</select>
