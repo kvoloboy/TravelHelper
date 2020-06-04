@@ -1,4 +1,9 @@
 ﻿using Autofac;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TravelHelper.DataAccess.Context;
+using TravelHelper.DataAccess.Factories;
+using TravelHelper.DataAccess.Factories.Interfaces;
 using TravelHelper.DataAccess.Repositories;
 using TravelHelper.Domain.Abstractions;
 using TravelHelper.Domain.Models;
@@ -10,22 +15,36 @@ namespace TravelHelper.DataAccess
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PermissionsReadonlyRepository>()
-                .As<IReadonlyRepository<Permission>>()
+            builder.RegisterType<UnitOfWork>()
+                .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<AgencyRepository>()
-                .As<IRepository<Agency>>()
+            builder.RegisterType<RepositoryFactory>()
+                .As<IRepositoryFactory>()
                 .InstancePerLifetimeScope();
 
-            // builder.RegisterType(typeof(IRepository<>))
-            // .AsImplementedInterfaces()
-            // .InstancePerLifetimeScope();
-            //
-            // builder.RegisterType(typeof(GenericRepository<>))
-            //     .AsSelf()
-            //     .AsImplementedInterfaces()
-            //     .InstancePerLifetimeScope();
+            builder.Register(c =>
+                {
+                    var config = c.Resolve<IConfiguration>();
+                    var connectionString = config["ConnectionStrings:TravelHelperDbContext"];
+                    var optionBuilder = new DbContextOptionsBuilder<TravelHelperDbContext>();
+                    optionBuilder.UseSqlServer(connectionString);
+
+                    return new TravelHelperDbContext(optionBuilder.Options);
+                })
+                .AsSelf()
+                .As<DbContext>()
+                .InstancePerLifetimeScope();
+
+            builder
+            .RegisterAssemblyTypes(typeof(DataAccessModule).Assembly)
+            .Where(t => t.IsClosedTypeOf(typeof(IReadonlyRepository<>)))
+            .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(typeof(DataAccessModule).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRepository<>)))
+                .AsImplementedInterfaces();
         }
     }
 }

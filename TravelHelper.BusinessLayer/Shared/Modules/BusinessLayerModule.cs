@@ -1,10 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
 using Autofac;
 using BusinessLayer.Shared.Filter;
 using BusinessLayer.Shared.Sort;
 using BusinessLayer.Shared.Validators;
+using BusinessLayer.TourManagement.DTO;
+using BusinessLayer.TourManagement.Queries;
 using MediatR;
-using Module = Autofac.Module;
 
 namespace BusinessLayer.Shared.Modules
 {
@@ -16,20 +17,34 @@ namespace BusinessLayer.Shared.Modules
                 .As<IMediator>()
                 .InstancePerLifetimeScope();
 
-            builder.Register<ServiceFactory>(context => context.Resolve);
+            builder.Register<ServiceFactory>(context =>
+            {
+                var c = context.Resolve<IComponentContext>();
+                return t => c.Resolve(t);
+            });
 
-            // builder.Register<ServiceFactory>(context =>
-            // {
-            //     var c = context.Resolve<IComponentContext>();
-            //     return t => c.Resolve(t);
-            // });
-
-            builder.RegisterAssemblyTypes(typeof(BusinessLayerModule).GetTypeInfo().Assembly)
-                .AsImplementedInterfaces();
+            builder.RegisterType<GetHotToursQueryHandler>()
+                .As<IRequestHandler<GetHotToursQuery, List<TourDto>>>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterModule(new SortModule());
             builder.RegisterModule(new FilterModule());
             builder.RegisterModule(new ValidatorsModule());
+
+            builder
+                .RegisterAssemblyTypes(typeof(BusinessLayerModule).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRequest<>)))
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(typeof(BusinessLayerModule).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRequestHandler<>)))
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(typeof(BusinessLayerModule).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRequestHandler<,>)))
+                .AsImplementedInterfaces();
         }
     }
 }
