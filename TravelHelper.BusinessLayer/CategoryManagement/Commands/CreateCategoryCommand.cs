@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BusinessLayer.CategoryManagement.Commands
 {
-    public class CreateCategoryCommand : IRequest<Result<CategoryDto>>
+    public class CreateCategoryCommand : IRequest<Unit>
     {
         public string Name { get; set; }
     }

@@ -8,7 +8,7 @@ using TravelHelper.Domain.Models;
 
 namespace BusinessLayer.AgencyManagement.Commands
 {
-    public class CreateAgencyCommandHandler : IRequestHandler<CreateAgencyCommand, Result>
+    public class CreateAgencyCommandHandler : IRequestHandler<CreateAgencyCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -21,13 +21,13 @@ namespace BusinessLayer.AgencyManagement.Commands
             _agencyRepository = unitOfWork.GetRepository<Agency>();
         }
 
-        public async Task<Result> Handle(CreateAgencyCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateAgencyCommand request, CancellationToken cancellationToken)
         {
             var agency = _mapper.Map<CreateAgencyCommand, Agency>(request);
             await _agencyRepository.AddAsync(agency);
             await _unitOfWork.CommitAsync();
 
-            return Result.Ok();
+            return Unit.Value;
         }
     }
 }

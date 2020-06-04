@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Shared;
@@ -31,7 +33,17 @@ namespace BusinessLayer.TourManagement.Queries
 
             var tourDto = _mapper.Map<Tour, TourDto>(tour);
 
+            tourDto.Rating = GetTourRating(tour.Ratings);
+
             return Result.Ok(tourDto);
+        }
+
+        private static double GetTourRating(ICollection<Rating> ratings)
+        {
+            var votesCount = ratings.Count;
+            var rating = (double) ratings.Sum(r => r.Value) / votesCount;
+
+            return rating;
         }
     }
 }

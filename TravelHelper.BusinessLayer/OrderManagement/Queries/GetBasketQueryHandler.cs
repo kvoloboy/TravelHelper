@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.OrderManagement.DTO;
@@ -32,8 +34,18 @@ namespace BusinessLayer.OrderManagement.Queries
             }
 
             var basket = _mapper.Map<Order, BasketDto>(order);
+            basket.Total = ComputeOrderTotal(order.Details);
 
             return Result.Ok(basket);
+        }
+
+        private static double ComputeOrderTotal(IEnumerable<OrderDetails> orderDetails)
+        {
+            const int maxDiscountValue = 100;
+
+            var sum = orderDetails.Sum(od => (od.Price - od.Price * od.Discount / maxDiscountValue) * od.Quantity);
+
+            return sum;
         }
     }
 }

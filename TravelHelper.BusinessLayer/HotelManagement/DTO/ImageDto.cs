@@ -1,4 +1,4 @@
-﻿namespace BusinessLayer.Shared.DTO
+﻿namespace BusinessLayer.HotelManagement.DTO
 {
     public class ImageDto
     {

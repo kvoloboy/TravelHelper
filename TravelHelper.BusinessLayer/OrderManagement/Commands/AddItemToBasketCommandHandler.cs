@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Shared;
@@ -26,17 +27,28 @@ namespace BusinessLayer.OrderManagement.Commands
 
         public async Task<Result> Handle(AddItemToBasketCommand request, CancellationToken cancellationToken)
         {
-            var order = _orderRepository.FindSingleAsync(o => o.Id == request.UserId && o.Status == OrderStatus.New);
+            var order = await _orderRepository.FindSingleAsync(o =>
+                o.Id == request.UserId && o.Status == OrderStatus.New);
 
             if (order == null)
             {
                 return Result.Fail($"Not found new order for user with id: {request.UserId}");
             }
 
-            var orderDetails = _mapper.Map<AddItemToBasketCommand, OrderDetails>(request);
-            orderDetails.OrderId = order.Id;
+            var orderDetails = order.Details.FirstOrDefault(od => od.TourId == request.TourId);
 
-            await _orderDetailsRepository.AddAsync(orderDetails);
+            if (orderDetails != null)
+            {
+                orderDetails.Quantity++;
+                await _orderDetailsRepository.UpdateAsync(orderDetails);
+            }
+            else
+            {
+                orderDetails = _mapper.Map<AddItemToBasketCommand, OrderDetails>(request);
+                orderDetails.OrderId = order.Id;
+                await _orderDetailsRepository.AddAsync(orderDetails);
+            }
+
             await _unitOfWork.CommitAsync();
 
             return Result.Ok();

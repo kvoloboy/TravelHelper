@@ -9,7 +9,7 @@ using TravelHelper.Domain.Models;
 
 namespace BusinessLayer.CategoryManagement.Commands
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CategoryDto>>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<Category> _categoryRepository;
@@ -22,16 +22,14 @@ namespace BusinessLayer.CategoryManagement.Commands
             _categoryRepository = _unitOfWork.GetRepository<Category>();
         }
 
-        public async Task<Result<CategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var category = _mapper.Map<CreateCategoryCommand, Category>(request);
-            var id = await _categoryRepository.AddAsync(category);
+
+            await _categoryRepository.AddAsync(category);
             await _unitOfWork.CommitAsync();
 
-            var dto = _mapper.Map<CreateCategoryCommand, CategoryDto>(request);
-            dto.Id = id;
-
-            return Result.Ok(dto);
+            return Unit.Value;
         }
     }
 }

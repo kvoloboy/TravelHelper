@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BusinessLayer.AgencyManagement.Commands
 {
-    public class CreateAgencyCommand : IRequest<Result>
+    public class CreateAgencyCommand : IRequest<Unit>
     {
         public string Name { get; set; }
         public string Phone { get; set; }

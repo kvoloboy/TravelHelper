@@ -9,12 +9,12 @@ using TravelHelper.Domain.Models.Identity;
 
 namespace BusinessLayer.UserManagement.Queries
 {
-    public class GetUSerByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Result<UserDto>>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Result<UserDto>>
     {
         private readonly IReadonlyRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
-        public GetUSerByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetUserByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _userRepository = unitOfWork.GetRepository<User>();
             _mapper = mapper;

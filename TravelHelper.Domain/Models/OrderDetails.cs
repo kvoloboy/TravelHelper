@@ -5,8 +5,8 @@ namespace TravelHelper.Domain.Models
     public class OrderDetails : BaseEntity
     {
         public short Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal Discount { get; set; }
+        public double Price { get; set; }
+        public double Discount { get; set; }
         public int PersonsCount { get; set; }
         public int Duration { get; set; }
         public DateTime BeginDate { get; set; }

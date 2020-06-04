@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BusinessLayer.Shared.DTO;
 
 namespace BusinessLayer.HotelManagement.DTO
 {
@@ -11,9 +10,8 @@ namespace BusinessLayer.HotelManagement.DTO
         public string Country { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public decimal PricePerDay { get; set; }
-        public decimal Longitude { get; set; }
-        public decimal Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public ICollection<ImageDto> Images { get; set; }
     }
 }

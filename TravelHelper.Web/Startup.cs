@@ -1,5 +1,13 @@
 using Autofac;
+using AutoMapper;
+using BusinessLayer.AgencyManagement.Mappings;
+using BusinessLayer.CategoryManagement.Mappings;
+using BusinessLayer.HotelManagement.Mappings;
+using BusinessLayer.LocationsManagement.Mappings;
+using BusinessLayer.OrderManagement.Mappings;
 using BusinessLayer.Shared.Modules;
+using BusinessLayer.TourManagement.Mappings;
+using BusinessLayer.UserManagement.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +41,16 @@ namespace TravelHelper.Web
 
             services.AddDbContext<TravelHelperDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TravelHelperDbContext")));
+
+            services.AddAutoMapper(
+                typeof(AgencyProfile),
+                typeof(CategoryProfile),
+                typeof(HotelProfile),
+                typeof(LocationProfile),
+                typeof(OrderProfile),
+                typeof(TourProfile),
+                typeof(UserProfile)
+            );
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

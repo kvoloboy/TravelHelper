@@ -10,6 +10,6 @@ namespace BusinessLayer.OrderManagement.Commands
         public int TourId { get; set; }
         public int PersonsCount { get; set; }
         public int Duration { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime BeginDate { get; set; }
     }
 }
