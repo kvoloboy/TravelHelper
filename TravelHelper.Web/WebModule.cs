@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using TravelHelper.Web.Factories;
 using TravelHelper.Web.Factories.Interfaces;
+using TravelHelper.Web.Models.Tours;
 using TravelHelper.Web.Models.Tours.Filters;
 
 namespace TravelHelper.Web
@@ -11,6 +12,10 @@ namespace TravelHelper.Web
         {
             builder.RegisterType<FilterViewModelFactory>()
                 .As<IViewModelFactory<FilterSelectedOptionsViewModel, FilterViewModel>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ModifyTourViewModelFactory>()
+                .As<IViewModelFactory<ModifyTourViewModel>>()
                 .InstancePerLifetimeScope();
         }
     }

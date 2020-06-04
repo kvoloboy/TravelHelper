@@ -6,4 +6,9 @@ namespace TravelHelper.Web.Factories.Interfaces
     {
         Task<TOutput> CreateAsync(TInput input);
     }
+
+    public interface IViewModelFactory<TInput>
+    {
+        Task<TInput> CreateAsync(TInput input);
+    }
 }

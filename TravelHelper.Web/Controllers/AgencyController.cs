@@ -78,15 +78,15 @@ namespace TravelHelper.Web.Controllers
 
             var agencyViewModel = _mapper.Map<AgencyViewModel>(result.Value);
 
-            return View("Update" ,agencyViewModel);
+            return View("Update", agencyViewModel);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update(AgencyViewModel agencyViewModel)
+        public async Task<IActionResult> UpdateAsync(AgencyViewModel agencyViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(agencyViewModel);
+                return View("Update", agencyViewModel);
             }
 
             var createAgencyCommand = _mapper.Map<AgencyViewModel, UpdateAgencyCommand>(agencyViewModel);

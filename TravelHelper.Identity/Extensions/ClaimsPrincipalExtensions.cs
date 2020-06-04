@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 
 namespace TravelHelper.Identity.Extensions
 {
@@ -11,11 +12,16 @@ namespace TravelHelper.Identity.Extensions
             return isAllowed;
         }
 
-        public static string GetId(this ClaimsPrincipal user)
+        public static int GetId(this ClaimsPrincipal user)
         {
             var userId = user.FindFirst(c => c.Type == CustomClaimTypes.Identifier)?.Value ?? string.Empty;
 
-            return userId;
+            if (!int.TryParse(userId, out var id))
+            {
+                throw new InvalidOperationException($"Cannot parse user id {userId} to number");
+            }
+
+            return id;
         }
     }
 }
