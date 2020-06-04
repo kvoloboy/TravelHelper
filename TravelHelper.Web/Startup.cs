@@ -38,7 +38,10 @@ namespace TravelHelper.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
 
             services.AddDbContext<TravelHelperDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TravelHelperDbContext")));

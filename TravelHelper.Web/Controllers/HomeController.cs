@@ -35,11 +35,5 @@ namespace TravelHelper.Web.Controllers
 
             return View(tourViewModels);
         }
-
-        [HttpGet("about-us")]
-        public IActionResult AboutUs()
-        {
-            return View();
-        }
     }
 }
