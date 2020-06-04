@@ -9,6 +9,17 @@ namespace TravelHelper.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.Property(role => role.Name).IsRequired();
+
+            builder.HasData(new Role
+            {
+                Id = 1,
+                Name = "Admin"
+            },
+            new Role
+            {
+                Id = 2,
+                Name = "User"
+            });
         }
     }
 }
