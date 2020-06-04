@@ -1,5 +1,71 @@
 ﻿@model BasketViewModel
 
-@{
-    ViewBag.Title = "Basket";
+@{ ViewBag.Title = "Basket"; }
+
+@section Styles
+{
+    <link rel="stylesheet" href="css/Basket/Index.css">
 }
+<div class="container-fluid">
+    <div class="row">
+        <img src="~/img/Basket/TopWithTextBasket.png" class="img" width="100%" height="600">
+    </div>
+    <div class="row">
+        <article class="cart">
+            <header class="w-60 d-flex ">
+                <h2 class="cart-header">Cart</h2>
+            </header>
+            <main class="order-info">
+                <section class="products-list w-60">
+                    @foreach (var orderDetail in Model.OrderDetails)
+                    {
+                        <div id="@Model.OrderId">
+                            <hr />
+                        <div class="cart-item">
+                        <div class="image-container">
+                            <img src="@orderDetail.Tour.Hotel.Images" alt="tour-image">
+                        </div>
+                        <div class="game-description">
+                            <h3 class="game-name">@orderDetail.Tour.Name</h3>
+                            <p class="size">@orderDetail.PersonsCount</p>
+                            <h3 class="game-price">@orderDetail.Price.ToString(FormatTemplates.CurrencyFormat)</h3>
+                            <div class="quantity-wrapper">
+                                <form asp-action="UpdateQuantityAsync" asp-route-detailsId="@Model.OrderId"
+                                      class="quantity-control decrement-button">
+                                    <button type="submit" class="button-transparent details-changer">
+                                        <img src="~img/Basket/Remove Icon.svg" alt="remove">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <form asp-action="DeleteAsync" asp-route-id="@Model.OrderId">
+                            <button class="application-link button-transparent button-remove details-changer">
+                                Remove
+                            </button>
+                        </form>
+                        </div>
+                        </div>  
+                     }
+                </section>
+                @if (Model.OrderDetails.Any())
+                {
+    <section class="order-summary">
+        <div class="summary-container">
+            <div id="total-summary">
+                <h3 class="summary-header">Order summary</h3>
+                <hr>
+                <div class="summary-point total">
+                    <h3 class="cost-label">Total</h3>
+                    <h3 class="cost total-price">@Model.Total.ToString(FormatTemplates.CurrencyFormat)</h3>
+                </div>
+            </div>
+            <a asp-action="SetShipmentOptionsAsync" asp-route-orderId="@Model.OrderId" asp-controller="Order"
+               class="orange-button checkout">
+                Checkout
+            </a>
+        </div>
+    </section>}
+            </main>
+        </article>
+        </div>
+    </div>
