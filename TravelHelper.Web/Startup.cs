@@ -8,6 +8,7 @@ using BusinessLayer.OrderManagement.Mappings;
 using BusinessLayer.Shared.Modules;
 using BusinessLayer.TourManagement.Mappings;
 using BusinessLayer.UserManagement.Mappings;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,8 @@ namespace TravelHelper.Web
             }
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
