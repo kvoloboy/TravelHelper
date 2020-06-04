@@ -1,39 +1,41 @@
-﻿@model IEnumerable<AgencyViewModel>
+﻿@using TravelHelper.Web.Models.Shared
+@model IEnumerable<AgencyViewModel>
 
 @{ ViewBag.Title = "Agencies"; }
+
 <table class="table">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Description</th>
-        </tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Description</th>
     </thead>
     <tbody>
-        @foreach (var agency in Model)
-        {
+    @foreach (var agency in Model)
+    {
         <tr>
             <td>@agency.Id</td>
             <td>@agency.Name</td>
             <td>@agency.Phone</td>
             <td>@agency.Description</td>
             <td class="text-center">
-                @if (User.IsAllowedPermission(Permissions.UpdatePlatform))
+                @if (User.IsAllowedPermission(Permissions.ManageAgencies))
                 {
-        <a asp-action="UpdateAsync" class="btn btn-primary" asp-route-id="@agency.Id">Update</a>}
-                @if (User.IsAllowedPermission(Permissions.DeletePlatform))
+                    <a asp-action="UpdateAsync" class="btn btn-primary" asp-route-id="@agency.Id">Update</a>
+                }
+                @if (User.IsAllowedPermission(Permissions.ManageAgencies))
                 {
-        <form class="d-inline-block" asp-action="DeleteAsync" asp-route-id="@agency.Id">
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>}
+                    <form class="d-inline-block" asp-action="DeleteAsync" asp-route-id="@agency.Id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                }
             </td>
         </tr>
-        }
+    }
     </tbody>
 </table>
 
-@if (User.IsAllowedPermission(Permissions.CreatePlatform))
+@if (User.IsAllowedPermission(Permissions.ManageAgencies))
 {
     <div class="text-center pt-5">
         <a asp-action="CreateAsync" class="btn btn-lg btn-outline-primary">Create</a>

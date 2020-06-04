@@ -1,29 +1,31 @@
-﻿@model IEnumerable<LocationViewModel>
+﻿@using TravelHelper.Web.Models.Shared
+@model IEnumerable<LocationViewModel>
 
 @{
     ViewBag.Title = "Locations";
 }
-    <div class="text-center">
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var location in Model)
-                {
-    <tr>
-        <td>@location.Id</td>
-        <td>@location.Name</td>
-    </tr>}
-            </tbody>
-        </table>
-        @if (User.IsAllowedPermission(Permissions.CreatePlatform))
+<div class="text-center">
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var location in Model)
         {
-            <div class="text-center pt-5">
-                <a asp-action="CreateAsync" class="btn btn-lg btn-outline-primary">Create</a>
-            </div>
+            <tr>
+                <td>@location.Id</td>
+                <td>@location.Name</td>
+            </tr>
         }
-    </div>
+        </tbody>
+    </table>
+    @if (User.IsAllowedPermission(Permissions.ManageLocations))
+    {
+        <div class="text-center pt-5">
+            <a asp-action="CreateAsync" class="btn btn-lg btn-outline-primary">Create</a>
+        </div>
+    }
+</div>

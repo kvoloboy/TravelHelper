@@ -23,14 +23,14 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             var query = new GetAgenciesQuery();
             var agencyDtos = await _mediator.Send(query);
 
             var agencyViewModels = _mapper.Map<IEnumerable<AgencyViewModel>>(agencyDtos);
 
-            return View(agencyViewModels);
+            return View("Index", agencyViewModels);
         }
 
         [HttpGet("create")]
@@ -40,22 +40,22 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(AgencyViewModel agencyViewModel)
+        public async Task<IActionResult> CreateAsync(AgencyViewModel agencyViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(agencyViewModel);
+                return View("Create", agencyViewModel);
             }
 
             var createAgencyCommand = _mapper.Map<AgencyViewModel, CreateAgencyCommand>(agencyViewModel);
 
             await _mediator.Send(createAgencyCommand);
 
-            return RedirectToAction(nameof(GetAll));
+            return RedirectToAction(nameof(GetAllAsync));
         }
 
         [HttpGet("update")]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> UpdateAsync(int id)
         {
             if (id == default)
             {
@@ -78,7 +78,7 @@ namespace TravelHelper.Web.Controllers
 
             var agencyViewModel = _mapper.Map<AgencyViewModel>(result.Value);
 
-            return View(agencyViewModel);
+            return View("Update" ,agencyViewModel);
         }
 
         [HttpPost("update")]
@@ -95,7 +95,7 @@ namespace TravelHelper.Web.Controllers
 
             if (result.Success)
             {
-                return RedirectToAction(nameof(GetAll));
+                return RedirectToAction(nameof(GetAllAsync));
             }
 
             ModelState.AddModelError(string.Empty, result.Error);
@@ -104,7 +104,7 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (id == default)
             {
@@ -120,7 +120,7 @@ namespace TravelHelper.Web.Controllers
 
             if (result.Success)
             {
-                return RedirectToAction(nameof(GetAll));
+                return RedirectToAction(nameof(GetAllAsync));
             }
 
             ModelState.AddModelError(string.Empty, result.Error);

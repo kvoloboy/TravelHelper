@@ -22,14 +22,14 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             var query = new GetCategoriesQuery();
             var categoryDtos = await _mediator.Send(query);
 
             var categoryViewModels = _mapper.Map<IEnumerable<CategoryViewModel>>(categoryDtos);
 
-            return View(categoryViewModels);
+            return View("Index", categoryViewModels);
         }
 
         [HttpGet("create")]
@@ -39,7 +39,7 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> CreateAsync(CategoryViewModel categoryViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -50,12 +50,12 @@ namespace TravelHelper.Web.Controllers
 
             await _mediator.Send(createCategoryCommand);
 
-            return RedirectToAction(nameof(GetAll));
+            return RedirectToAction(nameof(GetAllAsync));
         }
 
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (id == default)
             {
@@ -71,7 +71,7 @@ namespace TravelHelper.Web.Controllers
 
             if (result.Success)
             {
-                return RedirectToAction(nameof(GetAll));
+                return RedirectToAction(nameof(GetAllAsync));
             }
 
             ModelState.AddModelError(string.Empty, result.Error);
