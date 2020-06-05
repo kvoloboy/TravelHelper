@@ -52,6 +52,14 @@ namespace TravelHelper.Web.Mappings
             CreateMap<TourDto, TourCatalogItemViewModel>()
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Hotel.Images.FirstOrDefault()));
             CreateMap<ImageDto, ImageViewModel>();
+
+            CreateMap<TourDto, TourDetailsViewModel>();
+
+            CreateMap<LocationDto, LocationViewModel>();
+
+            CreateMap<BasketDto, BasketViewModel>();
+
+            CreateMap<OrderDetailsDto, OrderDetailsViewModel>();
         }
     }
 }

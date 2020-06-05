@@ -22,6 +22,6 @@ namespace TravelHelper.Web.Models.Hotels
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Enter image, please")]
-        public IEnumerable<IFormFile> Images { get; set; }
+        public IFormFileCollection Images { get; set; }
     }
 }

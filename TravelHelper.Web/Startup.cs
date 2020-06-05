@@ -9,8 +9,10 @@ using BusinessLayer.Shared.Modules;
 using BusinessLayer.TourManagement.Mappings;
 using BusinessLayer.UserManagement.Mappings;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,10 +41,8 @@ namespace TravelHelper.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(options =>
-            {
-                options.SuppressAsyncSuffixInActionNames = false;
-            });
+            services.AddControllersWithViews(options => { options.SuppressAsyncSuffixInActionNames = false; })
+                .AddRazorRuntimeCompilation();
 
             services.AddDbContext<TravelHelperDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TravelHelperDbContext")));
@@ -57,6 +57,10 @@ namespace TravelHelper.Web
                 typeof(UserProfile),
                 typeof(WebProfile)
             );
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+            services.AddAuthorization();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -75,6 +79,10 @@ namespace TravelHelper.Web
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseCookiePolicy();
 
             app.UseStaticFiles();
 

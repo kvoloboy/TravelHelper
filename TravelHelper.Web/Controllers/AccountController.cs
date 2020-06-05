@@ -34,7 +34,7 @@ namespace TravelHelper.Web.Controllers
         [HttpPost("log-in")]
         public async Task<IActionResult> LogInAsync(LogInViewModel logInViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(nameof(LogIn), logInViewModel);
             }
@@ -68,7 +68,7 @@ namespace TravelHelper.Web.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(RegisterViewModel registerViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Register", registerViewModel);
             }

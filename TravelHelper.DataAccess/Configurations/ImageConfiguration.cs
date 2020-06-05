@@ -13,7 +13,7 @@ namespace TravelHelper.DataAccess.Configurations
             builder.HasData(new Image
             {
                 Id = 1,
-                Path = "~/wwwroot/img/Home/bottomWithText.png"
+                Path = "~/img/Home/bottomWithText.png"
             });
         }
     }

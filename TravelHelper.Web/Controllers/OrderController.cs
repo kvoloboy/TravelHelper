@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.OrderManagement.Commands;
+using BusinessLayer.OrderManagement.DTO;
+using BusinessLayer.OrderManagement.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TravelHelper.Identity.Extensions;
@@ -47,6 +49,27 @@ namespace TravelHelper.Web.Controllers
         public IActionResult Confirm()
         {
             throw new NotImplementedException();
+        }
+
+        [HttpGet("basket")]
+        public async Task<IActionResult> GetBasketAsync()
+        {
+            var query = new GetBasketQuery
+            {
+                UserId = User.GetId()
+            };
+
+            var result = await _mediator.Send(query);
+
+            if (result.Failure)
+            {
+                ModelState.AddModelError(string.Empty, result.Error);
+                return BadRequest(ModelState);
+            }
+
+            var viewModel = _mapper.Map<BasketDto, BasketViewModel>(result.Value);
+
+            return View("Basket", viewModel);
         }
     }
 }
