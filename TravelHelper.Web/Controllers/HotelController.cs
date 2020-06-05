@@ -77,7 +77,7 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (id == default)
             {

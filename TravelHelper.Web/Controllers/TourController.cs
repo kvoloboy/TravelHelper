@@ -33,7 +33,7 @@ namespace TravelHelper.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(FilterSelectedOptionsViewModel selectedOptions)
+        public async Task<IActionResult> GetAllAsync(FilterSelectedOptionsViewModel selectedOptions)
         {
             var toursQuery = _mapper.Map<FilterSelectedOptionsViewModel, GetToursQuery>(selectedOptions);
             var tourDtos = await _mediator.Send(toursQuery);
@@ -46,7 +46,7 @@ namespace TravelHelper.Web.Controllers
                 Filter = filterViewModel
             };
 
-            return View(catalog);
+            return View("Index", catalog);
         }
 
         [HttpGet("create")]
@@ -70,7 +70,7 @@ namespace TravelHelper.Web.Controllers
             var command = _mapper.Map<ModifyTourViewModel, CreateTourCommand>(modifyTourViewModel);
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(GetAllAsync));
         }
 
         [HttpGet("update")]
@@ -109,7 +109,7 @@ namespace TravelHelper.Web.Controllers
 
             if (!result.Failure)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetAllAsync));
             }
 
             ModelState.AddModelError(string.Empty, result.Error);
@@ -134,7 +134,7 @@ namespace TravelHelper.Web.Controllers
 
             if (result.Success)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GetAllAsync));
             }
 
             ModelState.AddModelError(string.Empty, result.Error);

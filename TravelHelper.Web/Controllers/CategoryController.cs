@@ -43,7 +43,7 @@ namespace TravelHelper.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(categoryViewModel);
+                return View("Create", categoryViewModel);
             }
 
             var createCategoryCommand = _mapper.Map<CategoryViewModel, CreateCategoryCommand>(categoryViewModel);

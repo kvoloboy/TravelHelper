@@ -100,7 +100,7 @@ namespace TravelHelper.Web.Controllers
 
             ModelState.AddModelError(string.Empty, result.Error);
 
-            return View(agencyViewModel);
+            return View("Update", agencyViewModel);
         }
 
         [HttpPost("delete")]
