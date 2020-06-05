@@ -1,0 +1,77 @@
+﻿@model FilterViewModel
+
+<cache>
+    <div class="m-4">
+        <form asp-action="GetAllAsync" id="filter" method="get">
+            <div class="sort">
+                <span class="font-weight-bold">Sort: </span>
+                <select class="form-control" name="@nameof(FilterSelectedOptionsViewModel.SortOption)"
+                        asp-items="@(new SelectList(Model.Source.SortOptions, "Value", "Key"))">
+                </select>
+            </div>
+            <div class="genres">
+                <span class="font-weight-bold">Categories: </span>
+                @foreach (var category in Model.Source.Categories)
+                {
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="@nameof(FilterSelectedOptionsViewModel.Categories)"
+                                   value="@category.Value" @(category.IsSelected ? "checked" : string.Empty)>
+                            @category.Key
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="platforms">
+                <span class="font-weight-bold">Agencies: </span>
+                @foreach (var agency in Model.Source.Agencies)
+                {
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="@nameof(FilterSelectedOptionsViewModel.Agencies)"
+                                   value="@agency.Value" @(agency.IsSelected ? "checked" : string.Empty)>
+                            @agency.Key
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="price-range">
+                <div class="d-flex justify-content-between">
+                    <div class="form-group mr-2">
+                        <label class="font-weight-bold">
+                            Min:
+                            <input type="number" min="0" class="form-control" name="@nameof(FilterSelectedOptionsViewModel.MinPrice)"
+                                   value="@Model.Selected.MinPrice">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">
+                            Max:
+                            <input type="number" min="0" class="form-control" name="@nameof(FilterSelectedOptionsViewModel.MaxPrice)"
+                                   value="@Model.Selected.MaxPrice">
+                        </label>
+                    </div>
+                </div>
+                <span class="field-validation-error" id="price-message"></span>
+            </div>
+            <div>
+                <span class="font-weight-bold">Location: </span>
+                <select class="form-control" name="@nameof(FilterSelectedOptionsViewModel.DestinationPointId)"
+                        asp-items="@(new SelectList(Model.Source.DestinationPoints, "Value", "Key"))">
+                </select>
+            </div>
+            <div class="search">
+                <div class="form-group">
+                    <label>
+                        <span class="font-weight-bold">Search: </span>
+                        <input class="form-control" name="@nameof(FilterSelectedOptionsViewModel.Name)"
+                               value="@Model.Selected.Name">
+                    </label>
+                </div>
+            </div>
+            <div class="text-left">
+                <button class="btn btn-outline-primary" disabled id="filter-btn" type="submit">Filter</button>
+            </div>
+        </form>
+    </div>
+</cache>

@@ -11,19 +11,17 @@ namespace TravelHelper.DataAccess.Configurations
             builder.Property(category => category.Name).IsRequired();
             builder.HasData(new Category
             {
-                Id=1,
+                Id = 1,
                 Name = "Lux"
             }, new Category
             {
-                Id=2,
+                Id = 2,
                 Name = "Econome"
             }, new Category
             {
-                Id=3,
+                Id = 3,
                 Name = "Medium"
             });
-
         }
     }
 }
-

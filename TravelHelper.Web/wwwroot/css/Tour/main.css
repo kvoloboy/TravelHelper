@@ -1,0 +1,30 @@
+﻿.tours-catalogue {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.tour-container {
+    margin-top: 3vh;
+    width: 20%;
+    margin-right: 5%;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+}
+
+.tour-header{
+    font-size: 14px;
+    line-height: 22px;
+    color: #3E4554;
+    margin: 0;
+}
+
+.tour-description{
+    font-size: 14px;
+    line-height: 18px;
+    color: #404040;
+    margin-top: 0.5vh;
+}

@@ -62,7 +62,7 @@ namespace TravelHelper.Web.Factories
             {
                 Key = agency.Name,
                 Value = agency.Id,
-                IsSelected = selectedAgencies.Contains(agency.Id)
+                IsSelected = selectedAgencies?.Contains(agency.Id) ?? false
             });
 
             return listItems;
@@ -76,7 +76,7 @@ namespace TravelHelper.Web.Factories
             {
                 Key = agency.Name,
                 Value = agency.Id,
-                IsSelected = selectedCategories.Contains(agency.Id)
+                IsSelected = selectedCategories?.Contains(agency.Id) ?? false
             });
 
             return listItems;

@@ -141,5 +141,30 @@ namespace TravelHelper.Web.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            if (id == default)
+            {
+                return NotFound();
+            }
+
+            var query = new GetTourByIdQuery
+            {
+                Id = id
+            };
+
+            var result = await _mediator.Send(query);
+
+            if (result.Failure)
+            {
+                return NotFound();
+            }
+
+            var viewModel = _mapper.Map<TourDto, TourDetailsViewModel>(result.Value);
+
+            return View("TourDetails", viewModel);
+        }
     }
 }

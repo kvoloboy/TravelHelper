@@ -3,3 +3,28 @@
 @{
     ViewBag.Title = "Tours";
 }
+
+<main class="d-flex">
+    <aside class="w-20">
+        <div class="bg-light">
+            @(await Html.PartialAsync("Filter", Model.Filter))
+        </div>
+    </aside>
+    <div class="w-60">
+    </div>
+</main>
+<div class="tours-catalogue">
+    @if (!Model.Items.Any())
+    {
+        <div class="text-center">
+            <h2>No items</h2>
+        </div>
+    }
+    else
+    {
+        foreach (var tourViewModel in Model.Items)
+        {
+            <partial model="tourViewModel" name="TourSummary"/>
+        }
+    }
+</div>

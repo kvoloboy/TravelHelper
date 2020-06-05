@@ -56,7 +56,10 @@ namespace TravelHelper.DataAccess.Repositories
                     : tours.OrderByDescending(sort);
             }
 
-            tours = tours.Skip(skip);
+            if (skip > 0)
+            {
+                tours = tours.Skip(skip);
+            }
 
             if (take != null)
             {

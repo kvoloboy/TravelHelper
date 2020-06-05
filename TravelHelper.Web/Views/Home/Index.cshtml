@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Home";
 }
+
 <div class="container-fluid">
     <div class="row">
         <img src="~/img/Home/TopWithText.png" class="img" width="100%" height="600">
@@ -22,21 +23,7 @@
     <div class="row text-center">
         @foreach (var catalogItem in Model)
         {
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <img class="card-img-top" src="@catalogItem.Image.Path" alt="Hot Trip">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <p>@catalogItem.Name</p>
-                        </h4>
-                        <p class="card-text">
-                        <p>@catalogItem.Description</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Read more!</a>
-                    </div>
-                </div>
-            </div>
+            <partial model="catalogItem" name="TourSummary"/>
         }
     </div>
 
