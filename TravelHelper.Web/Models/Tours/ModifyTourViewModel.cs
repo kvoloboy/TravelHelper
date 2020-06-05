@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TravelHelper.Domain.Models.Enums;
-using TravelHelper.Web.Models.Agencies;
-using TravelHelper.Web.Models.Categories;
-using TravelHelper.Web.Models.Hotels;
 using TravelHelper.Web.Models.Shared;
 
 namespace TravelHelper.Web.Models.Tours

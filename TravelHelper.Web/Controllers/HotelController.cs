@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.HotelManagement.Commands;
@@ -7,6 +8,7 @@ using BusinessLayer.HotelManagement.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TravelHelper.Web.Models.Hotels;
+using TravelHelper.Web.Services.Interfaces;
 
 namespace TravelHelper.Web.Controllers
 {
@@ -15,11 +17,13 @@ namespace TravelHelper.Web.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IFileUploadService _fileUploadService;
 
-        public HotelController(IMediator mediator, IMapper mapper)
+        public HotelController(IMediator mediator, IMapper mapper, IFileUploadService fileUploadService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _fileUploadService = fileUploadService;
         }
 
         [HttpGet]
@@ -47,33 +51,19 @@ namespace TravelHelper.Web.Controllers
                 return View("Create", createHotelViewModel);
             }
 
+            var imagePaths = await _fileUploadService.UploadAsync(createHotelViewModel.Images.ToArray());
+
+            var images = imagePaths.Select(path => new ImageDto
+            {
+                Path = path
+            });
+
             var createHotelCommand = _mapper.Map<CreateHotelViewModel, CreateHotelCommand>(createHotelViewModel);
+            createHotelCommand.Images = images;
+
             await _mediator.Send(createHotelCommand);
 
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet("update")]
-        public async Task<IActionResult> UpdateAsync(int id)
-        {
-            if (id == default)
-            {
-                return NotFound();
-            }
-
-            var query = new GetHotelByIdQuery();
-            var result = await _mediator.Send(query);
-
-            if (result.Failure)
-            {
-                ModelState.AddModelError(string.Empty, result.Error);
-
-                return BadRequest(ModelState);
-            }
-
-            var viewModel = _mapper.Map<HotelDto, UpdateHotelViewModel>(result.Value);
-
-            return View("Update", viewModel);
         }
 
         [HttpPost("delete")]

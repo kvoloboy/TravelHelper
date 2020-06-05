@@ -11,10 +11,7 @@ namespace TravelHelper.Domain.Models
         public int Visits { get; set; }
         public double PricePerDay { get; set; }
 
-        public int SourcePointId { get; set; }
-        public Location SourcePoint { get; set; }
-
-        public int? DestinationPointId { get; set; }
+        public int DestinationPointId { get; set; }
         public Location DestinationPoint { get; set; }
 
         public int HotelId { get; set; }

@@ -18,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using TravelHelper.DataAccess;
 using TravelHelper.DataAccess.Context;
 using TravelHelper.Identity;
+using TravelHelper.Web.Mappings;
 
 namespace TravelHelper.Web
 {
@@ -53,7 +54,8 @@ namespace TravelHelper.Web
                 typeof(LocationProfile),
                 typeof(OrderProfile),
                 typeof(TourProfile),
-                typeof(UserProfile)
+                typeof(UserProfile),
+                typeof(WebProfile)
             );
         }
 

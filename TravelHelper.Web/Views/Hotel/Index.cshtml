@@ -24,11 +24,7 @@
             <td>@hotel.City</td>
             <td>@hotel.Address</td>
             <td class="text-center">
-                @if (User.IsAllowedPermission(Permissions.ManageAgencies))
-                {
-                    <a asp-action="UpdateAsync" class="btn btn-primary" asp-route-id="@hotel.Id">Update</a>
-                }
-                @if (User.IsAllowedPermission(Permissions.ManageAgencies))
+                @if (User.IsAllowedPermission(Permissions.ManageHotels))
                 {
                     <form class="d-inline-block" asp-action="DeleteAsync" asp-route-id="@hotel.Id">
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -40,7 +36,7 @@
     </tbody>
 </table>
 
-@if (User.IsAllowedPermission(Permissions.ManageAgencies))
+@if (User.IsAllowedPermission(Permissions.ManageHotels))
 {
     <div class="text-center pt-5">
         <a asp-action="CreateAsync" class="btn btn-lg btn-outline-primary">Create</a>

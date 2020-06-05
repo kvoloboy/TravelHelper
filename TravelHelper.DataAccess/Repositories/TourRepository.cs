@@ -22,7 +22,6 @@ namespace TravelHelper.DataAccess.Repositories
         {
             var tour = _tourDbSet
                 .Include(t => t.DestinationPoint)
-                .Include(t => t.SourcePoint)
                 .Include(t => t.Agency)
                 .Include(t => t.Category)
                 .Include(t => t.Hotel)

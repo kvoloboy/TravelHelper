@@ -11,15 +11,15 @@ namespace TravelHelper.DataAccess.Configurations
             builder.Property(location => location.Name).IsRequired();
 
             builder.HasData(new Location
-            {
-                Id = 1,
-                Name = "Dnepr"
-            },
-            new Location
-            {
-                Id=2,
-                Name = "Tadgikistan"
-            });
+                {
+                    Id = 1,
+                    Name = "Dnepr"
+                },
+                new Location
+                {
+                    Id = 2,
+                    Name = "Tadgikistan"
+                });
         }
     }
 }

@@ -21,10 +21,6 @@ namespace BusinessLayer.Shared.Filter
             builder.RegisterType<TourExpressionPipeline>()
                 .As<IPipeline<Expression<Func<Tour, bool>>>>()
                 .InstancePerLifetimeScope();
-
-            builder.RegisterType(typeof(IPipelineNode<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
         }
     }
 }

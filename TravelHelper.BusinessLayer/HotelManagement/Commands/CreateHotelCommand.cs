@@ -13,6 +13,6 @@ namespace BusinessLayer.HotelManagement.Commands
         public string Address { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public ICollection<ImageDto> Images { get; set; }
+        public IEnumerable<ImageDto> Images { get; set; }
     }
 }

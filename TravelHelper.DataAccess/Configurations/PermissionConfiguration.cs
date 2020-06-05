@@ -42,7 +42,7 @@ namespace TravelHelper.DataAccess.Configurations
             },
             new Permission
             {
-                Id = 6,
+                Id = 7,
                 Value = "Make orders"
             });
         }

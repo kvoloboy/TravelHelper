@@ -9,7 +9,6 @@ namespace TravelHelper.Web.Models.Tours.Filters
         public int MaxPrice { get; set; }
         public string Name { get; set; }
         public TimeOfTheYear? TimeOfTheYear { get; set; }
-        public int SourcePointId { get; set; }
         public int DestinationPointId { get; set; }
         public IEnumerable<int> Categories { get; set; }
         public IEnumerable<int> Agencies { get; set; }
