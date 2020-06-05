@@ -3,3 +3,47 @@
 @{
     ViewBag.Title = "Update tour";
 }
+<form asp-action="UpdateAsync" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control">
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeOfTheYear">TimeOfTheYear</label>
+        <select asp-for="TimeOfTheYear" asp-items="Html.GetEnumSelectList<TimeOfTheYear>()">
+            <option selected="selected" value="@string.Empty">All</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="PricePerDay">PricePerDay</label>
+        <input asp-for="PricePerDay" class="form-control">
+        <span asp-validation-for="PricePerDay"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AgencyId">Agency</label>
+        <select class="form-control" asp-for="AgencyId"
+                asp-items="@(new SelectList(Model.Agencies, nameof(AgencyViewModel.Id), nameof(AgencyViewModel.Name)))">
+            <option value="@string.Empty">None</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select class="form-control" asp-for="CategoryId"
+                asp-items="@(new SelectList(Model.Categories, nameof(CategoryViewModel.Id), nameof(CategoryViewModel.Name)))">
+            <option value="@string.Empty">None</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-lg btn-outline-primary">
+            Update
+        </button>
+    </div>
+</form>

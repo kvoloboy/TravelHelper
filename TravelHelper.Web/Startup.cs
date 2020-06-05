@@ -8,8 +8,11 @@ using BusinessLayer.OrderManagement.Mappings;
 using BusinessLayer.Shared.Modules;
 using BusinessLayer.TourManagement.Mappings;
 using BusinessLayer.UserManagement.Mappings;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using TravelHelper.DataAccess;
 using TravelHelper.DataAccess.Context;
 using TravelHelper.Identity;
+using TravelHelper.Web.Mappings;
 
 namespace TravelHelper.Web
 {
@@ -37,7 +41,8 @@ namespace TravelHelper.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options => { options.SuppressAsyncSuffixInActionNames = false; })
+                .AddRazorRuntimeCompilation();
 
             services.AddDbContext<TravelHelperDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TravelHelperDbContext")));
@@ -49,8 +54,13 @@ namespace TravelHelper.Web
                 typeof(LocationProfile),
                 typeof(OrderProfile),
                 typeof(TourProfile),
-                typeof(UserProfile)
+                typeof(UserProfile),
+                typeof(WebProfile)
             );
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+            services.AddAuthorization();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -69,6 +79,12 @@ namespace TravelHelper.Web
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseCookiePolicy();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

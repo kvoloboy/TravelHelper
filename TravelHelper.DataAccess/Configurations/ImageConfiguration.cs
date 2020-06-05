@@ -9,6 +9,12 @@ namespace TravelHelper.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Image> builder)
         {
             builder.Property(image => image.Path).IsRequired();
+
+            builder.HasData(new Image
+            {
+                Id = 1,
+                Path = "~/img/Home/bottomWithText.png"
+            });
         }
     }
 }

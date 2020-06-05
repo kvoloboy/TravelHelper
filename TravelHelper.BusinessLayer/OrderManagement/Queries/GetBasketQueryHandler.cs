@@ -43,7 +43,7 @@ namespace BusinessLayer.OrderManagement.Queries
         {
             const int maxDiscountValue = 100;
 
-            var sum = orderDetails.Sum(od => (od.Price - od.Price * od.Discount / maxDiscountValue) * od.Quantity);
+            var sum = orderDetails?.Sum(od => (od.Price - od.Price * od.Discount / maxDiscountValue) * od.Quantity) ?? 0;
 
             return sum;
         }

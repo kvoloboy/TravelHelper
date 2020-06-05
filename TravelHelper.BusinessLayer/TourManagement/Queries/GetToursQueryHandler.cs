@@ -41,7 +41,6 @@ namespace BusinessLayer.TourManagement.Queries
                 .WithNode(new NamePipelineNode(request.Name))
                 .WithNode(new PriceRangePipelineNode(request.MinPrice, request.MaxPrice))
                 .WithNode(new TimeOfTheYearPipelineNode(request.TimeOfTheYear))
-                .WithNode(new SourcePointPipelineNode(request.SourcePointId))
                 .WithNode(new DestinationPointPipelineNode(request.DestinationPointId))
                 .Execute();
 

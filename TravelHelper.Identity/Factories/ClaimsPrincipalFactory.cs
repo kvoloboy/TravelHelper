@@ -27,7 +27,6 @@ namespace TravelHelper.Identity.Factories
             };
 
             var result = await _mediator.Send(query);
-            var userDto = result.Value;
 
             if (result.Failure)
             {

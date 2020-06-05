@@ -138,8 +138,7 @@ namespace TravelHelper.DataAccess.Migrations
                     TimeOfTheYear = table.Column<int>(nullable: false),
                     Visits = table.Column<int>(nullable: false),
                     PricePerDay = table.Column<double>(nullable: false),
-                    SourcePointId = table.Column<int>(nullable: false),
-                    DestinationPointId = table.Column<int>(nullable: true),
+                    DestinationPointId = table.Column<int>(nullable: false),
                     HotelId = table.Column<int>(nullable: false),
                     AgencyId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false)
@@ -164,17 +163,11 @@ namespace TravelHelper.DataAccess.Migrations
                         column: x => x.DestinationPointId,
                         principalTable: "Locations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tours_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tours_Locations_SourcePointId",
-                        column: x => x.SourcePointId,
-                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -307,6 +300,112 @@ namespace TravelHelper.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Agencies",
+                columns: new[] { "Id", "Description", "Name", "Phone" },
+                values: new object[,]
+                {
+                    { 1, "duzche garno", "Agency1", "+380956221121" },
+                    { 2, "ne duzche garno", "Agency2", "+120956221126" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Lux" },
+                    { 2, "Econome" },
+                    { 3, "Medium" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hotels",
+                columns: new[] { "Id", "Address", "City", "Country", "Description", "Latitude", "Longitude", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Ubeleinaya 16", "Kramatorsk", "Ukraine", "Black lives matter, very good hotel", 48.439999999999998, 37.340000000000003, "BanderClub" },
+                    { 2, "BakerStreet211", "NewYork", "America", "Hotel near kramatorsk sea, big country ukraine amazing life", 74.0, 40.420000000000002, "ShpartaArt" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "Path" },
+                values: new object[] { 1, null, "~/wwwroot/img/Home/bottomWithText.png" });
+
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Dnepr" },
+                    { 2, "Tadgikistan" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Permissions",
+                columns: new[] { "Id", "Value" },
+                values: new object[,]
+                {
+                    { 2, "Manage tours" },
+                    { 5, "Manage hotels" },
+                    { 6, "Manage orders" },
+                    { 7, "Make orders" },
+                    { 1, "Manage agencies" },
+                    { 3, "Manage categories" },
+                    { 4, "Manage locations" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "PasswordHash" },
+                values: new object[,]
+                {
+                    { 1, "artem.shporta@nure.ua", new byte[] { 216, 87, 142, 223, 132, 88, 206, 6, 251, 197, 187, 118, 165, 140, 92, 164 } },
+                    { 2, "artem.shporta@gmail.com", new byte[] { 140, 50, 229, 4, 139, 196, 251, 252, 93, 197, 60, 137, 163, 108, 8, 18 } }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RolePermission",
+                columns: new[] { "PermissionId", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 1 },
+                    { 4, 1 },
+                    { 5, 1 },
+                    { 6, 1 },
+                    { 7, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tours",
+                columns: new[] { "Id", "AgencyId", "CategoryId", "Description", "DestinationPointId", "HotelId", "Name", "PricePerDay", "TimeOfTheYear", "Visits" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, "With out tarakaniysov i yje good", 1, 1, "HotLife", 10.32, 0, 1 },
+                    { 2, 2, 2, "With tarakanu, no s pullom", 2, 2, "ColdLife", 7.4199999999999999, 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Images_HotelId",
                 table: "Images",
@@ -361,11 +460,6 @@ namespace TravelHelper.DataAccess.Migrations
                 name: "IX_Tours_HotelId",
                 table: "Tours",
                 column: "HotelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tours_SourcePointId",
-                table: "Tours",
-                column: "SourcePointId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",

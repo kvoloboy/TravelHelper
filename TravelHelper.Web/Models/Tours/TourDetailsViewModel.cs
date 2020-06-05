@@ -2,6 +2,7 @@
 using TravelHelper.Web.Models.Agencies;
 using TravelHelper.Web.Models.Categories;
 using TravelHelper.Web.Models.Hotels;
+using TravelHelper.Web.Models.Location;
 
 namespace TravelHelper.Web.Models.Tours
 {
@@ -17,5 +18,6 @@ namespace TravelHelper.Web.Models.Tours
         public double Rating { get; set; }
         public AgencyViewModel Agency { get; set; }
         public CategoryViewModel Category { get; set; }
+        public LocationViewModel DestinationPoint { get; set; }
     }
 }

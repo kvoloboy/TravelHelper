@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <table class="table table-borderless">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        @if (User.IsAllowedPermission(Permissions.ManageLocations))
+        {
+            <div class="text-center pt-5">
+                <a asp-action="CreateAsync" class="btn btn-lg btn-outline-primary">Create</a>
+            </div>
+        }
+    </div>
+</div>

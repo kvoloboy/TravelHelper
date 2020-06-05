@@ -11,7 +11,10 @@ namespace BusinessLayer.HotelManagement.Mappings
         {
             CreateMap<Hotel, HotelDto>();
 
+            CreateMap<Image, ImageDto>();
+
             CreateMap<CreateHotelCommand, Hotel>();
+
             CreateMap<UpdateHotelCommand, Hotel>();
         }
     }

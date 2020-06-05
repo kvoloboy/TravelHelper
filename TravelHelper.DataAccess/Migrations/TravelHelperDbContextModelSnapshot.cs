@@ -41,6 +41,22 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Agencies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "duzche garno",
+                            Name = "Agency1",
+                            Phone = "+380956221121"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "ne duzche garno",
+                            Name = "Agency2",
+                            Phone = "+120956221126"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Category", b =>
@@ -57,6 +73,23 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Lux"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Econome"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Medium"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Hotel", b =>
@@ -95,6 +128,30 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Ubeleinaya 16",
+                            City = "Kramatorsk",
+                            Country = "Ukraine",
+                            Description = "Black lives matter, very good hotel",
+                            Latitude = 48.439999999999998,
+                            Longitude = 37.340000000000003,
+                            Name = "BanderClub"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "BakerStreet211",
+                            City = "NewYork",
+                            Country = "America",
+                            Description = "Hotel near kramatorsk sea, big country ukraine amazing life",
+                            Latitude = 74.0,
+                            Longitude = 40.420000000000002,
+                            Name = "ShpartaArt"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.Permission", b =>
@@ -111,6 +168,43 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Manage agencies"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Manage tours"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Value = "Manage categories"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Value = "Manage locations"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Value = "Manage hotels"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Value = "Manage orders"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Value = "Make orders"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.Role", b =>
@@ -127,6 +221,18 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.RolePermission", b =>
@@ -142,6 +248,43 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("RolePermission");
+
+                    b.HasData(
+                        new
+                        {
+                            PermissionId = 7,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            PermissionId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            PermissionId = 2,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            PermissionId = 3,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            PermissionId = 4,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            PermissionId = 5,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            PermissionId = 6,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.User", b =>
@@ -162,6 +305,20 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "artem.shporta@nure.ua",
+                            PasswordHash = new byte[] { 216, 87, 142, 223, 132, 88, 206, 6, 251, 197, 187, 118, 165, 140, 92, 164 }
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "artem.shporta@gmail.com",
+                            PasswordHash = new byte[] { 140, 50, 229, 4, 139, 196, 251, 252, 93, 197, 60, 137, 163, 108, 8, 18 }
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.UserRole", b =>
@@ -177,6 +334,18 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Image", b =>
@@ -198,6 +367,13 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Path = "~/wwwroot/img/Home/bottomWithText.png"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Location", b =>
@@ -214,6 +390,18 @@ namespace TravelHelper.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Dnepr"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Tadgikistan"
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Order", b =>
@@ -321,7 +509,7 @@ namespace TravelHelper.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DestinationPointId")
+                    b.Property<int>("DestinationPointId")
                         .HasColumnType("int");
 
                     b.Property<int>("HotelId")
@@ -333,9 +521,6 @@ namespace TravelHelper.DataAccess.Migrations
 
                     b.Property<double>("PricePerDay")
                         .HasColumnType("float");
-
-                    b.Property<int>("SourcePointId")
-                        .HasColumnType("int");
 
                     b.Property<int>("TimeOfTheYear")
                         .HasColumnType("int");
@@ -353,9 +538,35 @@ namespace TravelHelper.DataAccess.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.HasIndex("SourcePointId");
-
                     b.ToTable("Tours");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AgencyId = 1,
+                            CategoryId = 1,
+                            Description = "With out tarakaniysov i yje good",
+                            DestinationPointId = 1,
+                            HotelId = 1,
+                            Name = "HotLife",
+                            PricePerDay = 10.32,
+                            TimeOfTheYear = 0,
+                            Visits = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AgencyId = 2,
+                            CategoryId = 2,
+                            Description = "With tarakanu, no s pullom",
+                            DestinationPointId = 2,
+                            HotelId = 2,
+                            Name = "ColdLife",
+                            PricePerDay = 7.4199999999999999,
+                            TimeOfTheYear = 2,
+                            Visits = 2
+                        });
                 });
 
             modelBuilder.Entity("TravelHelper.Domain.Models.Identity.RolePermission", b =>
@@ -450,17 +661,13 @@ namespace TravelHelper.DataAccess.Migrations
 
                     b.HasOne("TravelHelper.Domain.Models.Location", "DestinationPoint")
                         .WithMany()
-                        .HasForeignKey("DestinationPointId");
+                        .HasForeignKey("DestinationPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TravelHelper.Domain.Models.Hotel", "Hotel")
                         .WithMany()
                         .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TravelHelper.Domain.Models.Location", "SourcePoint")
-                        .WithMany()
-                        .HasForeignKey("SourcePointId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

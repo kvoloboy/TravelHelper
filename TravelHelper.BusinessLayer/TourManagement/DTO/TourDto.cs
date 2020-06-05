@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.AgencyManagement.DTO;
 using BusinessLayer.CategoryManagement.DTO;
 using BusinessLayer.HotelManagement.DTO;
+using BusinessLayer.LocationsManagement.DTO;
 using TravelHelper.Domain.Models.Enums;
 
 namespace BusinessLayer.TourManagement.DTO
@@ -15,11 +16,8 @@ namespace BusinessLayer.TourManagement.DTO
         public int Visits { get; set; }
         public double PricePerDay { get; set; }
         public double Rating { get; set; }
-
-        public int AgencyId { get; set; }
         public AgencyDto Agency { get; set; }
-
-        public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
+        public LocationDto DestinationPoint { get; set; }
     }
 }

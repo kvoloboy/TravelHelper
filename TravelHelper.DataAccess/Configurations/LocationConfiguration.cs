@@ -9,6 +9,17 @@ namespace TravelHelper.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Location> builder)
         {
             builder.Property(location => location.Name).IsRequired();
+
+            builder.HasData(new Location
+                {
+                    Id = 1,
+                    Name = "Dnepr"
+                },
+                new Location
+                {
+                    Id = 2,
+                    Name = "Tadgikistan"
+                });
         }
     }
 }
